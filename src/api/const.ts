@@ -5,7 +5,18 @@ export const API_ENDPOINTS = {
   },
   USER: {
     GET_ALL: (skip: number, take: number) =>
-      `/api/v1/Customer/?Skip=${skip}&Take=${take}`,
-    GET_BY_ID: (id: number) => `/api/v1/Customer/${id}`,
+      `/api/v1/User/?Skip=${skip}&Take=${take}`,
+    GET_BY_ID: (id: number) => `/api/v1/User/${id}`,
+  },
+  ORDER: {
+    GET_ALL: (
+      skip: number,
+      take: number,
+      startDate?: string,
+      endDate?: string,
+      status?: 0 | 1 | 2 | 3
+    ) =>
+      `/api/v1/Order?StartDate=${startDate}&EndDate=${endDate}&Status=${status}&Skip=${skip}&Take=${take}`,
+    CREATE: "/api/v1/Order",
   },
 };
