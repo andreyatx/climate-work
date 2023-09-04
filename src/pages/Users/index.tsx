@@ -3,13 +3,11 @@ import { appThunks } from "../../store/features/app/appThunks";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { appSelectors } from "../../store/features";
 import { User } from "./User";
+import { CreateUser } from "./CreateUser";
 
 export const Users = () => {
   const dispatch = useAppDispatch();
   const users = useAppSelector(appSelectors.users);
-
-  console.log(users);
-
 
   const submitHandler = async () => {
     dispatch(appThunks.getUsers({ skip: 0, take: 10 }))
@@ -47,6 +45,7 @@ export const Users = () => {
           </Button>
           {users && users?.length > 0 && <><h1>Пользователи:</h1>{users.map(user => <User key={user.id} {...user} />)}</>}
         </Box>
+        <CreateUser />
       </Box>
 
     </Container>

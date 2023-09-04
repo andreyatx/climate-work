@@ -9,6 +9,7 @@ export const appSlice = createSlice({
   initialState: {
     isAppLoading: false,
     users: [],
+    orders: [],
   } as AppState,
   reducers: {
     setIsLoading: (state, { payload }: PayloadAction<boolean>) => {
@@ -17,10 +18,10 @@ export const appSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(appThunks.getUsers.fulfilled, (state, { payload }) => {
-      console.log(payload);
-
-      //@ts-ignore
       state.users = payload;
+    });
+    builder.addCase(appThunks.getOrders.fulfilled, (state, { payload }) => {
+      state.orders = payload;
     });
   },
 });
@@ -29,6 +30,7 @@ export const appSelectors = {
   all: (state: RootState) => state.app,
   isAppLoading: (state: RootState) => state.app.isAppLoading,
   users: (state: RootState) => state.app.users,
+  orders: (state: RootState) => state.app.orders,
 };
 
 export const appActions = appSlice.actions;

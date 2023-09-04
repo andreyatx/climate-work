@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { api } from "../../../api";
-import { GetUsersRequest } from "./typings";
+import { GetOrdersRequest, GetUsersRequest } from "./typings";
 
 export const getUsers = createAsyncThunk(
   "users/get",
@@ -10,4 +10,12 @@ export const getUsers = createAsyncThunk(
     return data;
   }
 );
-export const appThunks = { getUsers };
+export const getOrders = createAsyncThunk(
+  "orders/get",
+  async (payload: GetOrdersRequest) => {
+    const data = await api.getAllUsers(payload);
+
+    return data;
+  }
+);
+export const appThunks = { getUsers, getOrders };

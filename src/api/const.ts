@@ -9,6 +9,7 @@ export const API_ENDPOINTS = {
         search ? `?Search=${search}` : "?"
       }Skip=${skip}&Take=${take}`,
     GET_BY_ID: (id: number) => `/api/v1/User/${id}`,
+    CREATE: `/api/v1/User`,
   },
   ORDER: {
     GET_ALL: (
