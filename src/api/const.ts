@@ -4,8 +4,10 @@ export const API_ENDPOINTS = {
     LOG_IN: "/api/v1/Auth/login",
   },
   USER: {
-    GET_ALL: (skip: number, take: number) =>
-      `/api/v1/User/?Skip=${skip}&Take=${take}`,
+    GET_ALL: (skip: number, take: number, search?: string) =>
+      `/api/v1/User/${
+        search ? `?Search=${search}` : "?"
+      }Skip=${skip}&Take=${take}`,
     GET_BY_ID: (id: number) => `/api/v1/User/${id}`,
   },
   ORDER: {

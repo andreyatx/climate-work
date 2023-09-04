@@ -1,18 +1,19 @@
 import { Box, Button, Container } from "@mui/material"
-import { api } from "../../api";
-import { useState } from "react";
+import { appThunks } from "../../store/features/app/appThunks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { appSelectors } from "../../store/features";
+import { User } from "./User";
 
 export const Users = () => {
-  const [users, setUsers] = useState<Array<unknown> | null>(null);
+  const dispatch = useAppDispatch();
+  const users = useAppSelector(appSelectors.users);
+
+  console.log(users);
+
 
   const submitHandler = async () => {
-    const res = await api.getAllUsers();
-    console.log(res);
-
-    await setUsers(res);
+    dispatch(appThunks.getUsers({ skip: 0, take: 10 }))
   }
-
-
 
   return (
     <Container component="main" maxWidth="xl">
@@ -31,7 +32,7 @@ export const Users = () => {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
+            alignItems: 'flex-start',
           }}
 
         >
@@ -44,7 +45,7 @@ export const Users = () => {
           >
             Получить список пользователей
           </Button>
-          {users && users?.length > 0 && <h1>Пользователи:</h1>}
+          {users && users?.length > 0 && <><h1>Пользователи:</h1>{users.map(user => <User key={user.id} {...user} />)}</>}
         </Box>
       </Box>
 
