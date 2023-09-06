@@ -1,4 +1,4 @@
-import { Box, Button, Container, } from "@mui/material"
+import { Box, Button, Container } from "@mui/material"
 import { CreateOrder } from "./CreateOrder"
 import { appSelectors } from "../../store/features";
 import { appThunks } from "../../store/features/app/appThunks";
@@ -44,6 +44,7 @@ export const Orders = () => {
           >
             Получить список заказов
           </Button>
+
           {orders && orders?.length > 0 && <><h1>Заказы:</h1>{orders.map(order => <Order key={order.description} {...order} />)}</>}
         </Box>
         <CreateOrder />

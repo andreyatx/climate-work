@@ -1,18 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import { SignIn } from "../pages/SignIn";
 import { SignUp } from "../pages/SignUp";
-import { Root } from "./root";
+import { Paths, Root } from "./root";
 import App from "../App";
 import { Orders } from "../pages/Orders";
 import { Users } from "../pages/Users";
 
-export enum Paths {
-  Home = '/',
-  SignIn = '/sign-in',
-  SignUp = '/sign-up',
-  Users = '/users',
-  Orders = '/orders'
-}
+
 
 export const router = createBrowserRouter([
   {

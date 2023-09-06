@@ -55,7 +55,7 @@ export const CreateUser = () => {
       }}
       component="form" onSubmit={submitHandler} noValidate
     >
-      <h1 >Новый пользователь</h1>
+      <h1>Новый пользователь</h1>
       {userFieldsArray.map(field => field)}
       <Button
         type="submit"

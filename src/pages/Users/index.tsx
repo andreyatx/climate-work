@@ -1,17 +1,34 @@
-import { Box, Button, Container } from "@mui/material"
+import { Box, Container } from "@mui/material"
 import { appThunks } from "../../store/features/app/appThunks";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { appSelectors } from "../../store/features";
-import { User } from "./User";
-import { CreateUser } from "./CreateUser";
+import { Table } from "../../components/Table";
+import { useEffect } from "react";
+
+const userFields = { id: 'id', lastName: 'Фамилия', firstName: 'Имя', middleName: 'Отчество', role: 'Роль' };
+
+const requestConfig = {
+  skip: 0,
+  take: 10
+}
+
+
+
 
 export const Users = () => {
   const dispatch = useAppDispatch();
   const users = useAppSelector(appSelectors.users);
 
-  const submitHandler = async () => {
-    dispatch(appThunks.getUsers({ skip: 0, take: 10 }))
-  }
+  useEffect(() => {
+    dispatch(appThunks.getUsers(requestConfig))
+
+
+  }, [dispatch])
+
+
+  // const submitHandler = async () => {
+  //   dispatch(appThunks.getUsers({ skip: 0, take: 10 }))
+  // }
 
   return (
     <Container component="main" maxWidth="xl">
@@ -31,10 +48,11 @@ export const Users = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'flex-start',
+            width: '100%'
           }}
 
         >
-          <Button
+          {/* <Button
             type="button"
             fullWidth
             variant="contained"
@@ -42,12 +60,45 @@ export const Users = () => {
             onClick={() => submitHandler()}
           >
             Получить список пользователей
-          </Button>
-          {users && users?.length > 0 && <><h1>Пользователи:</h1>{users.map(user => <User key={user.id} {...user} />)}</>}
+          </Button> */}
+          {users && users?.length ? <Table title="Пользователи" fields={userFields} data={users} /> : null}
+
+          {/* {users && users?.length ? <>
+            <Typography variant="h4">Пользователи</Typography>
+            <TableContainer >
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    {userFields.map(field => <TableCell>{field}</TableCell>)}
+                  </TableRow>
+                </TableHead>
+
+                <TableBody>
+                  {users && users?.length && users.map((user) => (
+                    <TableRow
+                      key={user.id}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell>{user.id}</TableCell>
+                      <TableCell >
+                        {user.lastName}
+                      </TableCell>
+                      <TableCell>{user.firstName}</TableCell>
+                      <TableCell>{user.middleName}</TableCell>
+                      <TableCell>{Role[user.role as keyof typeof Role]}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+
+              </Table>
+            </TableContainer>
+          </> : null} */}
+
+
         </Box>
-        <CreateUser />
+        {/* <CreateUser /> */}
       </Box>
 
-    </Container>
+    </Container >
   )
 }

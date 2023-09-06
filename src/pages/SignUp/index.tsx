@@ -1,6 +1,6 @@
 import { Container, Box, Typography, TextField, Button, Link as MuiLink } from "@mui/material";
-import { Paths } from "../../routes/router";
 import { Link } from "react-router-dom";
+import { Paths } from "../../routes/root";
 
 export const SignUp = () => {
   const submitHandler = () => { console.log('submitted') };
