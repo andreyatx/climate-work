@@ -1,18 +1,30 @@
-import { Box, Button, Container } from "@mui/material"
-import { CreateOrder } from "./CreateOrder"
+import { Box, Button, Container, Modal } from "@mui/material"
 import { appSelectors } from "../../store/features";
 import { appThunks } from "../../store/features/app/appThunks";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { Order } from "./Order";
+import { Table } from "../../components/Table";
+import { orderFields } from "./const";
+import { useEffect, useState } from "react";
+import { CreateOrder } from "./CreateOrder";
 
+
+const requestConfig = {
+  skip: 0,
+  take: 10
+}
 
 export const Orders = () => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const dispatch = useAppDispatch();
   const orders = useAppSelector(appSelectors.orders);
 
-  const submitHandler = async () => {
-    dispatch(appThunks.getUsers({ skip: 0, take: 10 }))
-  }
+  useEffect(() => {
+
+    dispatch(appThunks.getOrders(requestConfig))
+
+  }, [dispatch])
 
 
   return (
@@ -33,21 +45,18 @@ export const Orders = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'flex-start',
+            width: '100%'
           }}
         >
-          <Button
-            type="button"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            onClick={() => submitHandler()}
+          <Button onClick={handleOpen} variant="contained" sx={{ alignSelf: 'flex-end', mt: '12px' }}>Создать заказ</Button>
+          <Modal
+            open={open}
+            onClose={handleClose}
           >
-            Получить список заказов
-          </Button>
-
-          {orders && orders?.length > 0 && <><h1>Заказы:</h1>{orders.map(order => <Order key={order.description} {...order} />)}</>}
+            <CreateOrder />
+          </Modal>
+          {orders && orders?.length > 0 && <Table fields={orderFields} data={orders} title="Заказы" />}
         </Box>
-        <CreateOrder />
       </Box>
 
     </Container>

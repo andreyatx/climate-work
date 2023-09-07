@@ -2,11 +2,12 @@ import { Typography, TableContainer, TableHead, TableRow, TableCell, TableBody, 
 import { FC } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 import { Role } from "../../config/const";
+import { Customer, Order, User } from "../../store/features/app/typings";
 
 type TableProps = {
   title?: string;
   fields: { [key: string]: string };
-  data: { [key: string]: string | number }[];
+  data: User[] | Order[] | Customer[];
 }
 
 export const Table: FC<TableProps> = ({ title, fields, data }) => {
@@ -16,14 +17,16 @@ export const Table: FC<TableProps> = ({ title, fields, data }) => {
       [key: string]: string | number;
     } = {};
     Object.keys(fields).forEach(key => {
-      sortedObj[key] = obj[key];
+      if (obj.hasOwnProperty(key)) {
+        sortedObj[key] = (obj as { [key: string]: string | number })[key];
+      }
     });
     return sortedObj;
   });
 
   return (
     <>
-      {title && <Typography variant="h4" sx={{ mt: '12px' }}>{title}</Typography>}
+      {title && <Typography variant="h4" >{title}</Typography>}
       <TableContainer>
         <MuiTable>
           <TableHead>
@@ -35,24 +38,33 @@ export const Table: FC<TableProps> = ({ title, fields, data }) => {
           </TableHead>
 
           <TableBody>
-            {sortedData &&
-              sortedData?.length &&
-              sortedData.map((item) => (
-                <TableRow
-                  key={nanoid()}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  {Object.entries(item).map(([key, value]) => {
+            {sortedData.map((item) => (
+              <TableRow
+                key={nanoid()}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                {Object.entries(item).map(([key, value]) => {
 
-                    if (key === 'role') {
-                      return <TableCell key={nanoid()}>{Role[value as keyof typeof Role]}</TableCell>
-                    }
+                  if (key === 'role') {
+                    return <TableCell key={nanoid()}>{Role[value as keyof typeof Role]}</TableCell>
+                  }
 
-                    return <TableCell key={nanoid()}>{value}</TableCell>
-                  })}
+                  if (typeof value === 'object' && Array.isArray(value)) {
+                    return (value as string[]).map(item => {
+                      console.log(item);
+                      return Object.entries(item).map(([key, value]) => {
+                        return <TableCell key={nanoid()}>{value}</TableCell>
+                      })
 
-                </TableRow>
-              ))}
+                    })
+
+                  }
+
+                  return <TableCell key={nanoid()}>{`${value}`}</TableCell>
+                })}
+
+              </TableRow>
+            ))}
           </TableBody>
         </MuiTable>
       </TableContainer>

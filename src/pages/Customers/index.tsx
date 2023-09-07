@@ -4,24 +4,24 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { appSelectors } from "../../store/features";
 import { Table } from "../../components/Table";
 import { useEffect, useState } from "react";
-import { CreateUser } from "./CreateUser";
+import { CreateCustomer } from "./CreateCustomer";
 
-const userFields = { id: 'id', lastName: 'Фамилия', firstName: 'Имя', middleName: 'Отчество', role: 'Роль' };
+const customerFields = { id: 'id', lastName: 'Фамилия', firstName: 'Имя', middleName: 'Отчество', phone: 'Телефон', addresses: 'Адреса', };
 
 const requestConfig = {
   skip: 0,
   take: 10
 }
 
-export const Users = () => {
+export const Customers = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useAppDispatch();
-  const users = useAppSelector(appSelectors.users);
+  const customers = useAppSelector(appSelectors.customers);
 
   useEffect(() => {
-    dispatch(appThunks.getUsers(requestConfig))
+    dispatch(appThunks.getCustomers(requestConfig))
   }, [dispatch])
 
 
@@ -46,14 +46,14 @@ export const Users = () => {
             width: '100%',
           }}
         >
-          <Button variant="contained" sx={{ alignSelf: 'flex-end', mt: '12px' }} onClick={handleOpen}>Создать пользователя</Button>
+          <Button variant="contained" sx={{ alignSelf: 'flex-end', mt: '12px' }} onClick={handleOpen}>Создать заказчика</Button>
           <Modal
             open={open}
             onClose={handleClose}
           >
-            <CreateUser />
+            <CreateCustomer />
           </Modal>
-          {users && users?.length ? <Table title="Пользователи" fields={userFields} data={users} /> : null}
+          {customers && customers?.length ? <Table title="Заказчики" fields={customerFields} data={customers} /> : null}
         </Box>
       </Box>
     </Container >

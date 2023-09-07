@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { NewUser, userFields } from "./const";
 import { useState } from "react";
 import { api } from "../../../api";
@@ -46,26 +46,37 @@ export const CreateUser = () => {
       />)
   }
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        width: '540px'
-      }}
-      component="form" onSubmit={submitHandler} noValidate
-    >
-      <h1>Новый пользователь</h1>
-      {userFieldsArray.map(field => field)}
-      <Button
-        type="submit"
-        fullWidth
-        variant="contained"
-        sx={{ mt: 3, mb: 2 }}
-        className="text-black"
+    <Box sx={{
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      bgcolor: 'background.paper',
+      boxShadow: 24,
+      p: 4,
+    }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          width: '540px'
+        }}
+        component="form" onSubmit={submitHandler} noValidate
       >
-        Создать
-      </Button>
+        <Typography variant="h4">Новый пользователь</Typography>
+        {userFieldsArray.map(field => field)}
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+          className="text-black"
+        >
+          Создать
+        </Button>
+      </Box>
     </Box>
+
   )
 }

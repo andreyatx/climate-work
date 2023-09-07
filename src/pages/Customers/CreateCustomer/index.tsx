@@ -1,26 +1,35 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { api } from "../../../api";
-import { orderFields } from "../const";
-import styles from './styles.module.css';
+import { NewCustomer, NewCustomerFields } from "./typings";
 
-const initialForm = {
-  skip: 0,
-  take: 10,
-  description: "",
-  cost: "",
-  startOfWork: "",
-  customerId: "",
-  addressId: "",
-  teamId: "",
+const initialForm: NewCustomer = {
+  lastName: "",
+  firstName: "",
+  middleName: "",
+  addresses: [{
+    city: '',
+    street: '',
+    home: 0,
+    room: 0
+  }],
+  phone: "",
 };
 
-export const CreateOrder = () => {
-  const [formData, setFormData] = useState<{ [key: string]: string | number }>(initialForm);
+export const customerFields: NewCustomerFields = {
+  lastName: "Фамилия",
+  firstName: "Имя",
+  middleName: "Отчество",
+  addresses: 'Адреса',
+  phone: 'Телефон'
+};
+
+export const CreateCustomer = () => {
+  const [formData, setFormData] = useState<NewCustomer>(initialForm);
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    api.orderCreate(formData);
+    // api.createUser(formData);
 
     setFormData(initialForm);
   }
@@ -33,22 +42,21 @@ export const CreateOrder = () => {
     }))
   };
 
-  const orderFieldsArray = [];
-  for (const prop in orderFields) {
-    orderFieldsArray.push(
+  const customerFieldsArray = [];
+  for (const prop in customerFields) {
+    customerFieldsArray.push(
       <TextField
         key={prop}
         margin="normal"
         required
         fullWidth
         id={prop}
-        label={orderFields[prop]}
+        label={customerFields[prop]}
         name={prop}
         value={formData[prop]}
         onChange={changeHandler}
       />)
   }
-
   return (
     <Box sx={{
       position: 'absolute',
@@ -68,8 +76,8 @@ export const CreateOrder = () => {
         }}
         component="form" onSubmit={submitHandler} noValidate
       >
-        <Typography variant="h4" className={styles.newOrder}>Новый заказ</Typography>
-        {orderFieldsArray.map(field => field)}
+        <Typography variant="h4">Новый заказчик</Typography>
+        {customerFieldsArray.map(field => field)}
         <Button
           type="submit"
           fullWidth
@@ -81,6 +89,6 @@ export const CreateOrder = () => {
         </Button>
       </Box>
     </Box>
+
   )
 }
-

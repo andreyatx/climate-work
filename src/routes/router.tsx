@@ -5,6 +5,7 @@ import { Paths, Root } from "./root";
 import App from "../App";
 import { Orders } from "../pages/Orders";
 import { Users } from "../pages/Users";
+import { Customers } from "../pages/Customers";
 
 
 
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: Paths.Orders,
         element: <Orders />
+      },
+      {
+        path: Paths.Customers,
+        element: <Customers />
       }
     ],
   },

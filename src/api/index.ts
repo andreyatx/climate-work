@@ -2,6 +2,7 @@ import axios from "axios";
 import { API_ENDPOINTS, BASE_URL } from "./const";
 import { OrderData, SignInData } from "./types";
 import {
+  GetCustomersRequest,
   GetOrdersRequest,
   GetUsersRequest,
 } from "../store/features/app/typings";
@@ -32,6 +33,12 @@ export const api = {
     const { skip, take, startDate, endDate, status } = data;
     return await instance
       .get(API_ENDPOINTS.ORDER.GET_ALL(skip, take, startDate, endDate, status))
+      .then((res) => res.data);
+  },
+  getAllCustomers: async (data: GetCustomersRequest) => {
+    const { skip, take, search } = data;
+    return await instance
+      .get(API_ENDPOINTS.CUSTOMER.GET_ALL(skip, take, search))
       .then((res) => res.data);
   },
   createUser: (data: NewUser) => {

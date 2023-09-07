@@ -8,7 +8,8 @@ export enum Paths {
   SignIn = '/sign-in',
   SignUp = '/sign-up',
   Users = '/users',
-  Orders = '/orders'
+  Orders = '/orders',
+  Customers = '/customers'
 }
 
 const navItems: {
@@ -16,6 +17,7 @@ const navItems: {
 } = {
   'Пользователи': Paths.Users,
   'Заказы': Paths.Orders,
+  'Заказчики': Paths.Customers
 }
 
 export const Root: FC = () => {
@@ -33,19 +35,13 @@ export const Root: FC = () => {
   return <>
     <AppBar component="nav" sx={{ position: 'relative' }}>
       <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          sx={{ mr: 2, display: { sm: 'none' } }}
-        >
-        </IconButton>
+
         <Typography
           variant="h6"
           component="div"
           sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
         >
-          MUI
+          Climate Work
         </Typography>
         <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
           {links.map((item) => (item))}
