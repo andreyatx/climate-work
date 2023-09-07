@@ -2,12 +2,12 @@ import { Typography, TableContainer, TableHead, TableRow, TableCell, TableBody, 
 import { FC } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 import { Role } from "../../config/const";
-import { Customer, Order, User } from "../../store/features/app/typings";
+import { Customer, Order, Team, User } from "../../store/features/app/typings";
 
 type TableProps = {
   title?: string;
   fields: { [key: string]: string };
-  data: User[] | Order[] | Customer[];
+  data: User[] | Order[] | Customer[] | Team[];
 }
 
 export const Table: FC<TableProps> = ({ title, fields, data }) => {

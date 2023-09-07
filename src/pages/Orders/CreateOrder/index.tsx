@@ -1,8 +1,8 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { api } from "../../../api";
-import { orderFields } from "../const";
 import styles from './styles.module.css';
+import { orderFields } from "..";
 
 const initialForm = {
   skip: 0,

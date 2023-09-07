@@ -5,13 +5,9 @@ import { appSelectors } from "../../store/features";
 import { Table } from "../../components/Table";
 import { useEffect, useState } from "react";
 import { CreateUser } from "./CreateUser";
+import { DEFAULT_REQUEST } from "../../config/const";
 
 const userFields = { id: 'id', lastName: 'Фамилия', firstName: 'Имя', middleName: 'Отчество', role: 'Роль' };
-
-const requestConfig = {
-  skip: 0,
-  take: 10
-}
 
 export const Users = () => {
   const [open, setOpen] = useState(false);
@@ -21,7 +17,7 @@ export const Users = () => {
   const users = useAppSelector(appSelectors.users);
 
   useEffect(() => {
-    dispatch(appThunks.getUsers(requestConfig))
+    dispatch(appThunks.getUsers(DEFAULT_REQUEST))
   }, [dispatch])
 
 

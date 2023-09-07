@@ -6,6 +6,7 @@ import App from "../App";
 import { Orders } from "../pages/Orders";
 import { Users } from "../pages/Users";
 import { Customers } from "../pages/Customers";
+import { Teams } from "../pages/Teams";
 
 
 
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
       {
         path: Paths.Customers,
         element: <Customers />
+      },
+      {
+        path: Paths.Teams,
+        element: <Teams />
       }
     ],
   },

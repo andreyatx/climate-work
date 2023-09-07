@@ -5,13 +5,9 @@ import { appSelectors } from "../../store/features";
 import { Table } from "../../components/Table";
 import { useEffect, useState } from "react";
 import { CreateCustomer } from "./CreateCustomer";
+import { DEFAULT_REQUEST } from "../../config/const";
 
 const customerFields = { id: 'id', lastName: 'Фамилия', firstName: 'Имя', middleName: 'Отчество', phone: 'Телефон', addresses: 'Адреса', };
-
-const requestConfig = {
-  skip: 0,
-  take: 10
-}
 
 export const Customers = () => {
   const [open, setOpen] = useState(false);
@@ -21,7 +17,7 @@ export const Customers = () => {
   const customers = useAppSelector(appSelectors.customers);
 
   useEffect(() => {
-    dispatch(appThunks.getCustomers(requestConfig))
+    dispatch(appThunks.getCustomers(DEFAULT_REQUEST))
   }, [dispatch])
 
 

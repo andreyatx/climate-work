@@ -3,6 +3,7 @@ export type AppState = {
   users: User[] | [];
   orders: Order[] | [];
   customers: Customer[] | [];
+  teams: Team[] | [];
 };
 
 export type User = {
@@ -39,6 +40,12 @@ export type Customer = {
   phone: string;
 };
 
+export type Team = {
+  id: number;
+  name: string;
+  users: User[];
+};
+
 export type GetUsersRequest = {
   search?: string;
   skip: number;
@@ -54,6 +61,12 @@ export type GetOrdersRequest = {
 };
 
 export type GetCustomersRequest = {
+  search?: string;
+  skip: number;
+  take: number;
+};
+
+export type GetTeamsRequest = {
   search?: string;
   skip: number;
   take: number;

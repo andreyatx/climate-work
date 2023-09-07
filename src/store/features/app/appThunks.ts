@@ -3,6 +3,7 @@ import { api } from "../../../api";
 import {
   GetCustomersRequest,
   GetOrdersRequest,
+  GetTeamsRequest,
   GetUsersRequest,
 } from "./typings";
 
@@ -14,6 +15,7 @@ export const getUsers = createAsyncThunk(
     return data;
   }
 );
+
 export const getOrders = createAsyncThunk(
   "orders/get",
   async (payload: GetOrdersRequest) => {
@@ -22,6 +24,7 @@ export const getOrders = createAsyncThunk(
     return data;
   }
 );
+
 export const getCustomers = createAsyncThunk(
   "customers/get",
   async (payload: GetCustomersRequest) => {
@@ -30,4 +33,13 @@ export const getCustomers = createAsyncThunk(
     return data;
   }
 );
-export const appThunks = { getUsers, getOrders, getCustomers };
+
+export const getTeams = createAsyncThunk(
+  "teams/get",
+  async (payload: GetTeamsRequest) => {
+    const data = await api.getAllTeams(payload);
+
+    return data;
+  }
+);
+export const appThunks = { getUsers, getOrders, getCustomers, getTeams };

@@ -3,15 +3,20 @@ import { appSelectors } from "../../store/features";
 import { appThunks } from "../../store/features/app/appThunks";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { Table } from "../../components/Table";
-import { orderFields } from "./const";
 import { useEffect, useState } from "react";
 import { CreateOrder } from "./CreateOrder";
+import { DEFAULT_REQUEST } from "../../config/const";
 
-
-const requestConfig = {
-  skip: 0,
-  take: 10
-}
+export const orderFields: {
+  [key: string]: string;
+} = {
+  description: "Описание",
+  cost: "Стоимость",
+  startOfWork: "Начало работы",
+  customerId: "id пользователя",
+  addressId: "id адреса",
+  teamId: "id команды",
+};
 
 export const Orders = () => {
   const [open, setOpen] = useState(false);
@@ -21,8 +26,7 @@ export const Orders = () => {
   const orders = useAppSelector(appSelectors.orders);
 
   useEffect(() => {
-
-    dispatch(appThunks.getOrders(requestConfig))
+    dispatch(appThunks.getOrders(DEFAULT_REQUEST))
 
   }, [dispatch])
 

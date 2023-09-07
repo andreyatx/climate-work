@@ -41,4 +41,8 @@ export const API_ENDPOINTS = {
         search ? `?Search=${search}` : "?"
       }Skip=${skip}&Take=${take}`,
   },
+  TEAM: {
+    GET_ALL: (skip: number, take: number, search?: string) =>
+      `/Teams/${search ? `?Search=${search}` : "?"}Skip=${skip}&Take=${take}`,
+  },
 };

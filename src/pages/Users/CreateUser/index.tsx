@@ -1,7 +1,16 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { NewUser, userFields } from "./const";
 import { useState } from "react";
 import { api } from "../../../api";
+
+export type NewUser = {
+  [key: string]: string;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  login: string;
+  password: string;
+};
+
 
 const initialForm: NewUser = {
   lastName: "",
@@ -9,6 +18,14 @@ const initialForm: NewUser = {
   middleName: "",
   login: "",
   password: "",
+};
+
+export const userFields: NewUser = {
+  lastName: "Фамилия",
+  firstName: "Имя",
+  middleName: "Отчество",
+  login: "Логин",
+  password: "Пароль",
 };
 
 export const CreateUser = () => {

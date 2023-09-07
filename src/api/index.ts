@@ -4,9 +4,10 @@ import { OrderData, SignInData } from "./types";
 import {
   GetCustomersRequest,
   GetOrdersRequest,
+  GetTeamsRequest,
   GetUsersRequest,
 } from "../store/features/app/typings";
-import { NewUser } from "../pages/Users/CreateUser/const";
+import { NewUser } from "../pages/Users/CreateUser";
 
 const ACCESS_TOKEN = localStorage.getItem("Access-Token");
 const AuthStr = "Bearer ".concat(ACCESS_TOKEN ? ACCESS_TOKEN : "");
@@ -39,6 +40,12 @@ export const api = {
     const { skip, take, search } = data;
     return await instance
       .get(API_ENDPOINTS.CUSTOMER.GET_ALL(skip, take, search))
+      .then((res) => res.data);
+  },
+  getAllTeams: async (data: GetTeamsRequest) => {
+    const { skip, take, search } = data;
+    return await instance
+      .get(API_ENDPOINTS.TEAM.GET_ALL(skip, take, search))
       .then((res) => res.data);
   },
   createUser: (data: NewUser) => {

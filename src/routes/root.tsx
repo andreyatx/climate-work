@@ -9,7 +9,8 @@ export enum Paths {
   SignUp = '/sign-up',
   Users = '/users',
   Orders = '/orders',
-  Customers = '/customers'
+  Customers = '/customers',
+  Teams = '/teams'
 }
 
 const navItems: {
@@ -17,7 +18,8 @@ const navItems: {
 } = {
   'Пользователи': Paths.Users,
   'Заказы': Paths.Orders,
-  'Заказчики': Paths.Customers
+  'Заказчики': Paths.Customers,
+  'Команды': Paths.Teams
 }
 
 export const Root: FC = () => {

@@ -11,6 +11,7 @@ export const appSlice = createSlice({
     users: [],
     orders: [],
     customers: [],
+    teams: [],
   } as AppState,
   reducers: {
     setIsLoading: (state, { payload }: PayloadAction<boolean>) => {
@@ -29,6 +30,10 @@ export const appSlice = createSlice({
     builder.addCase(appThunks.getCustomers.fulfilled, (state, { payload }) => {
       state.customers = payload;
     });
+
+    builder.addCase(appThunks.getTeams.fulfilled, (state, { payload }) => {
+      state.teams = payload;
+    });
   },
 });
 
@@ -38,6 +43,7 @@ export const appSelectors = {
   users: (state: RootState) => state.app.users,
   orders: (state: RootState) => state.app.orders,
   customers: (state: RootState) => state.app.customers,
+  teams: (state: RootState) => state.app.teams,
 };
 
 export const appActions = appSlice.actions;

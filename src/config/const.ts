@@ -3,3 +3,8 @@ export enum Role {
   Employee = "Работник",
   Chief = "Бригадир",
 }
+
+export const DEFAULT_REQUEST = {
+  skip: 0,
+  take: 10,
+};
