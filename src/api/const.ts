@@ -1,7 +1,7 @@
 export const BASE_URL = "http://192.168.111.78:8000/api/v1";
 export const API_ENDPOINTS = {
   AUTH: {
-    LOG_IN: "/api/v1/Auth/login",
+    LOG_IN: "/Auth/login",
   },
   USER: {
     GET_ALL: (skip: number, take: number, search?: string) =>

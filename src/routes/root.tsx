@@ -1,6 +1,6 @@
 import { type FC } from 'react';
 import { Outlet } from 'react-router-dom';
-import { AppBar, Toolbar, IconButton, Typography, Box } from "@mui/material";
+import { AppBar, Toolbar, Typography, Box } from "@mui/material";
 import { Link } from 'react-router-dom';
 
 export enum Paths {
