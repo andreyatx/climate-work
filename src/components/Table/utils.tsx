@@ -1,7 +1,7 @@
-import { Divider, TableBody, TableCell, TableHead, TableRow } from "@mui/material"
+import { TableBody, TableCell, TableHead, TableRow } from "@mui/material"
 import { nanoid } from "@reduxjs/toolkit";
 import { TableData } from ".";
-import { Address, Role, User, enumList } from "../../config/const";
+import { Address, Customer, Role, Status, User, enumList } from "../../config/const";
 import { Delete, Edit } from "@mui/icons-material";
 
 const sortObject = (data: TableData, fields: { [key: string]: string }) => {
@@ -32,23 +32,24 @@ export const renderTableHead = (fields: { [key: string]: string }) => {
 export const renderTableBody = (data: TableData, fields: { [key: string]: string }) => {
   const sortedData = sortObject(data, fields);
 
-  return sortedData.map(row => {
-    return (
-      <TableBody>
-        <TableRow>
-          {renderTableCells(row, fields)}
-          <TableCell>
-            <Edit sx={{ mr: "20px", cursor: 'pointer' }} />
-            <Delete sx={{ cursor: 'pointer' }} />
-          </TableCell>
-        </TableRow>
-      </TableBody>
-    )
-  })
+  return (
+    <TableBody>{
+      sortedData.map(row => {
+        return (
+          <TableRow>
+            {renderTableCells(row)}
+            <TableCell>
+              <Edit sx={{ mr: "20px", cursor: 'pointer' }} />
+              <Delete sx={{ cursor: 'pointer' }} />
+            </TableCell>
+          </TableRow>
+        )
+      })}
+    </TableBody>)
 }
 
-const renderTableCell = (value: string | number | { [key: string]: string | number }, key?: string) => {
-  let currentEnum: typeof Address | typeof Role | typeof User | null = null;
+const renderTableCell = (value: string | number | { [key: string]: string | number }, key?: string): JSX.Element | JSX.Element[] => {
+  let currentEnum: typeof Address | typeof Role | typeof User | typeof Status | typeof Customer | null = null;
   let dataString = '';
 
   if (key === 'address') {
@@ -63,105 +64,41 @@ const renderTableCell = (value: string | number | { [key: string]: string | numb
     currentEnum = enumList[2]
   }
 
-  if (key === 'completed') {
-    dataString = value ? 'Да' : 'Нет'
+  if (key === 'status') {
+    currentEnum = enumList[3]
   }
 
+  if (value === 'customer') {
+    currentEnum = enumList[4]
+  }
 
+  if (key === 'completed') {
+    dataString = value ? value.toString() : 'Нет'
+  }
 
   if (currentEnum) {
     dataString = `${currentEnum[value as keyof typeof currentEnum]}`
   }
 
-
-  if (typeof value === 'string' || typeof value === 'number') {
+  if (!currentEnum && (typeof value === 'string' || typeof value === 'number')) {
     dataString = value.toString()
+  }
+
+  if (value && typeof value === 'object') {
+    return renderTableCells(value);
   }
 
   return (
     <TableCell key={nanoid()}>
       <div style={{
-        maxHeight: '200px', overflow: 'auto'
+        maxHeight: '200px', overflow: 'auto', display: 'block'
       }}>
         {dataString}
       </div>
     </TableCell>
   )
-
 }
 
-export const renderTableCells = (row: { [key: string]: string | number }, fields: { [key: string]: string }) => {
-
-  let currentEnum: typeof Address | typeof Role | typeof User | null = null;
-
-
+export const renderTableCells = (row: { [key: string]: string | number }): JSX.Element[] => {
   return Object.entries(row).map(([key, value]) => { return renderTableCell(value, key) })
-  // if (key === 'role') {
-  //   currentEnum = enumList[1]
-  // }
-
-
-  // if (typeof value === 'object' && Array.isArray(value)) {
-
-  //   if (key === 'users') {
-  //     currentEnum = enumList[2];
-  // return <TableCell key={nanoid()}>
-  //   <div style={{
-  //     maxHeight: '200px', overflowX: 'auto', overflowY: 'auto',
-  //   }}>
-  //     {(value as string[]).map(item => {
-
-  //       return (
-  //         <div>
-  //           {Object.entries(item).map(([key, value]) => {
-  //             currentEnum = enumList[2];
-  //             return <div>{`${currentEnum[key as keyof typeof currentEnum]}: ${value}`}</div>
-  //           })}
-  //           <Divider sx={{ mb: '10px' }} />
-  //         </div>
-  //       )
-  //     })}
-  //   </div>
-  // </TableCell>
-  //   }
-
-  //   return <TableCell key={nanoid()}>
-  //     <div style={{
-  //       maxHeight: '200px', overflowX: 'auto', overflowY: 'auto',
-  //     }}>
-  //       {(value as string[]).map(item => {
-
-  //         return (
-  //           <div>
-  //             {Object.entries(item).map(([key, value]) => {
-  //               currentEnum = enumList[0];
-  //               return <div>{`${currentEnum[key as keyof typeof currentEnum]}: ${value}`}</div>
-  //             })}
-  //             <Divider sx={{ mb: '10px' }} />
-  //           </div>
-  //         )
-  //       })}
-  //     </div>
-  //   </TableCell>
-  // }
-
-  // if (currentEnum) {
-  //   return (
-  //     <TableCell key={nanoid()}>
-  //       <div style={{
-  //         maxHeight: '200px', overflow: 'auto'
-  //       }}>{`${currentEnum[value as keyof typeof currentEnum]}`}
-  //       </div>
-  //     </TableCell>
-  //   )
-  // }
-  //   return (
-  //     <TableCell key={nanoid()}>
-  //       <div style={{
-  //         maxHeight: '200px', overflow: 'auto'
-  //       }}>{value}
-  //       </div>
-  //     </TableCell>
-  //   )
-  // })
 }

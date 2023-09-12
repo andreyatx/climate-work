@@ -38,9 +38,18 @@ export enum Status {
   Canceled = "Отменён",
 }
 
+export enum Customer {
+  id = "id",
+  lastName = "Фамилия",
+  firstName = "Имя",
+  middleName = "Отчество",
+  phone = "Телефон",
+  addresses = "Адреса",
+}
+
 export const DEFAULT_REQUEST = {
   skip: 0,
   take: 10,
 };
 
-export const enumList = [Address, Role, User];
+export const enumList = [Address, Role, User, Status, Customer];
