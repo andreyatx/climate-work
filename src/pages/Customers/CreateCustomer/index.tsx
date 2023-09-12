@@ -1,6 +1,6 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { api } from "../../../api";
+// import { api } from "../../../api";
 import { NewCustomer, NewCustomerFields } from "./typings";
 
 const initialForm: NewCustomer = {

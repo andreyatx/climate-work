@@ -11,7 +11,7 @@ export type User = {
   lastName: string;
   middleName: string;
   role: string;
-  id: number;
+  id: string | number;
 };
 
 export type Order = {

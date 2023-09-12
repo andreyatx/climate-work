@@ -10,12 +10,14 @@ import { DEFAULT_REQUEST } from "../../config/const";
 export const orderFields: {
   [key: string]: string;
 } = {
+  id: "id",
+  status: "Статус",
   description: "Описание",
   cost: "Стоимость",
   startOfWork: "Начало работы",
-  customerId: "id пользователя",
-  addressId: "id адреса",
-  teamId: "id команды",
+  completed: "Выполнен",
+  customer: "Заказчик",
+  address: "Адрес",
 };
 
 export const Orders = () => {

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { CreateUser } from "./CreateUser";
 import { DEFAULT_REQUEST } from "../../config/const";
 
-const userFields = { id: 'id', lastName: 'Фамилия', firstName: 'Имя', middleName: 'Отчество', role: 'Роль' };
+const USER_FIELDS = { id: 'id', lastName: 'Фамилия', firstName: 'Имя', middleName: 'Отчество', role: 'Роль' };
 
 export const Users = () => {
   const [open, setOpen] = useState(false);
@@ -49,7 +49,7 @@ export const Users = () => {
           >
             <CreateUser />
           </Modal>
-          {users && users?.length ? <Table title="Пользователи" fields={userFields} data={users} /> : null}
+          {users && users?.length ? <Table title="Пользователи" fields={USER_FIELDS} data={users} /> : null}
         </Box>
       </Box>
     </Container >
