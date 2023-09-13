@@ -31,9 +31,9 @@ export const api = {
       .then((res) => res.data);
   },
   getAllOrders: async (data: GetOrdersRequest) => {
-    const { skip, take, startDate, endDate, status } = data;
+    const { skip, take, status, startDate, endDate } = data;
     return await instance
-      .get(API_ENDPOINTS.ORDER.GET_ALL(skip, take, startDate, endDate, status))
+      .get(API_ENDPOINTS.ORDER.GET_ALL(skip, take, status, startDate, endDate))
       .then((res) => res.data);
   },
   getAllCustomers: async (data: GetCustomersRequest) => {
@@ -51,7 +51,7 @@ export const api = {
   createUser: (data: NewUser) => {
     instance.post(API_ENDPOINTS.USER.CREATE, data);
   },
-  orderCreate: (data: OrderData) => {
+  createOrder: (data: OrderData) => {
     instance.post(API_ENDPOINTS.ORDER.CREATE, data);
   },
 };

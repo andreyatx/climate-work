@@ -8,6 +8,6 @@ export const Modal: FC<PropsWithChildren> = ({ children }) => {
   const dispatch = useAppDispatch();
 
   return (
-    <MuiModal open={isOpen} onClose={() => dispatch(appActions.closeModal)}><>{children}</></MuiModal>
+    <MuiModal sx={{ maxWidth: '100%' }} open={isOpen} onClose={() => dispatch(appActions.closeModal)}><>{children}</></MuiModal>
   )
 }

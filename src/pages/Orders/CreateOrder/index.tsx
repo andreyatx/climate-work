@@ -3,6 +3,7 @@ import { useState } from "react";
 import { api } from "../../../api";
 import styles from './styles.module.css';
 import { ORDER_FIELDS } from "../utils";
+import { CreateForm } from "../../../components/CreateForm";
 
 const initialForm = {
   skip: 0,
@@ -15,12 +16,23 @@ const initialForm = {
   teamId: "",
 };
 
+const ORDER_FORM_FIELDS: {
+  [key: string]: string
+} = {
+  description: 'Описание',
+  cost: 'Стоимость',
+  startOfWork: 'Начало работы',
+  customerId: 'id заказчика',
+  addressId: 'id адреса',
+  teamId: 'id команды'
+}
+
 export const CreateOrder = () => {
   const [formData, setFormData] = useState<{ [key: string]: string | number }>(initialForm);
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    api.orderCreate(formData);
+    api.createOrder(formData);
 
     setFormData(initialForm);
   }
@@ -34,7 +46,7 @@ export const CreateOrder = () => {
   };
 
   const orderFieldsArray = [];
-  for (const prop in ORDER_FIELDS) {
+  for (const prop in ORDER_FORM_FIELDS) {
     orderFieldsArray.push(
       <TextField
         key={prop}
@@ -42,7 +54,7 @@ export const CreateOrder = () => {
         required
         fullWidth
         id={prop}
-        label={ORDER_FIELDS[prop]}
+        label={ORDER_FORM_FIELDS[prop]}
         name={prop}
         value={formData[prop]}
         onChange={changeHandler}
@@ -50,37 +62,19 @@ export const CreateOrder = () => {
   }
 
   return (
-    <Box sx={{
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      bgcolor: 'background.paper',
-      boxShadow: 24,
-      p: 4,
-    }}>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          width: '540px'
-        }}
-        component="form" onSubmit={submitHandler} noValidate
+    <CreateForm onSubmit={submitHandler}>
+      <Typography variant="h4" className={styles.newOrder}>Новый заказ</Typography>
+      {orderFieldsArray.map(field => field)}
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+        className="text-black"
       >
-        <Typography variant="h4" className={styles.newOrder}>Новый заказ</Typography>
-        {orderFieldsArray.map(field => field)}
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-          className="text-black"
-        >
-          Создать
-        </Button>
-      </Box>
-    </Box>
+        Создать
+      </Button>
+    </CreateForm>
   )
 }
 

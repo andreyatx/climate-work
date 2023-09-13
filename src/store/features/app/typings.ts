@@ -58,7 +58,7 @@ export type GetUsersRequest = {
 export type GetOrdersRequest = {
   startDate?: string;
   endDate?: string;
-  status?: 0 | 1 | 2 | 3;
+  status: 0 | 1 | 2 | 3;
   skip: number;
   take: number;
 };

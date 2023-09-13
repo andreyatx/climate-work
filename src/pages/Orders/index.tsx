@@ -1,4 +1,4 @@
-import { Box, Button, Container, Modal } from "@mui/material"
+import { Box, Button, Container, FormControl, InputLabel, MenuItem, Modal, Select, SelectChangeEvent } from "@mui/material"
 import { appSelectors } from "../../store/features";
 import { appThunks } from "../../store/features/app/appThunks";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -11,15 +11,20 @@ import { renderOrders } from "./utils";
 
 export const Orders = () => {
   const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState<0 | 1 | 2 | 3>(1);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useAppDispatch();
   const orders = useAppSelector(appSelectors.orders);
 
-  useEffect(() => {
-    dispatch(appThunks.getOrders(DEFAULT_REQUEST))
+  const handleChange = (event: SelectChangeEvent) => {
+    setStatus(+event.target.value as 0 | 1 | 2 | 3);
+  };
 
-  }, [dispatch])
+  useEffect(() => {
+    dispatch(appThunks.getOrders({ ...DEFAULT_REQUEST, status }))
+
+  }, [dispatch, status])
 
 
   return (
@@ -44,6 +49,23 @@ export const Orders = () => {
           }}
         >
           <Button onClick={handleOpen} variant="contained" sx={{ alignSelf: 'flex-end', mt: '12px' }}>Создать заказ</Button>
+          <FormControl variant="standard" sx={{ minWidth: '100px' }}>
+            <InputLabel id="demo-simple-select-label">Статус заказа</InputLabel>
+            <Select
+              value={status.toString()}
+              label="Статус"
+              onChange={handleChange}
+              sx={{ color: 'black' }}
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+            >
+              <MenuItem value={0}>Новый</MenuItem>
+              <MenuItem value={1}>Назначен</MenuItem>
+              <MenuItem value={2}>Выполнен</MenuItem>
+              <MenuItem value={3}>Отменён</MenuItem>
+            </Select>
+          </FormControl>
+
           <Modal
             open={open}
             onClose={handleClose}

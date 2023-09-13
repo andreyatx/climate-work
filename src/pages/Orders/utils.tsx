@@ -26,11 +26,11 @@ export const renderOrders = (orders: [] | Order[]) => {
     <Table fields={ORDER_FIELDS} data={orders} title="Заказы" > {orders.map(order => {
       return <TableRow key={nanoid()}>
         <TableCell>{order.id}</TableCell>
-        <TableCell>{order.description}</TableCell>
         <TableCell>{Status[order.status as keyof typeof Status]}</TableCell>
+        <TableCell>{order.description}</TableCell>
         <TableCell>{order.cost}</TableCell>
-        <TableCell>{order.completed}</TableCell>
         <TableCell>{order.startOfWork}</TableCell>
+        <TableCell>{order.completed ? order.completed : 'не выполнен'}</TableCell>
         <TableCell>{
           Object.entries(order.customer).map(([key, value]) => {
             return (<div key={nanoid()}>{`${CUSTOMER_FIELDS[key as keyof typeof CUSTOMER_FIELDS]}: ${value}`}</div>)

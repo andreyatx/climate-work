@@ -1,6 +1,9 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { api } from "../../../api";
+import { CreateForm } from "../../../components/CreateForm";
+import { useAppDispatch } from "../../../store/hooks";
+import { appActions, appSelectors } from "../../../store/features";
 
 export type NewUser = {
   [key: string]: string;
@@ -30,12 +33,14 @@ export const userFields: NewUser = {
 
 export const CreateUser = () => {
   const [formData, setFormData] = useState<NewUser>(initialForm);
+  const dispatch = useAppDispatch();
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     api.createUser(formData);
 
     setFormData(initialForm);
+    dispatch(appActions.closeModal)
   }
 
   const changeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -50,50 +55,34 @@ export const CreateUser = () => {
   for (const prop in userFields) {
     userFieldsArray.push(
       <TextField
+        sx={{
+          width: '100%'
+        }}
         key={prop}
         margin="normal"
-        required
-        fullWidth
+        required={true}
         id={prop}
         label={userFields[prop]}
-        type={prop === 'password' ? 'password' : 'text'}
+        type={prop === 'password' ? 'password' : 'text'
+        }
         name={prop}
         value={formData[prop]}
         onChange={changeHandler}
       />)
   }
   return (
-    <Box sx={{
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      bgcolor: 'background.paper',
-      boxShadow: 24,
-      p: 4,
-    }}>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          width: '540px'
-        }}
-        component="form" onSubmit={submitHandler} noValidate
+    <CreateForm onSubmit={submitHandler}>
+      <Typography variant="h4">Новый пользователь</Typography>
+      {userFieldsArray.map(field => field)}
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+        className="text-black"
       >
-        <Typography variant="h4">Новый пользователь</Typography>
-        {userFieldsArray.map(field => field)}
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-          className="text-black"
-        >
-          Создать
-        </Button>
-      </Box>
-    </Box>
-
+        Создать
+      </Button>
+    </CreateForm>
   )
 }

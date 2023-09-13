@@ -13,9 +13,9 @@ export const API_ENDPOINTS = {
     GET_ALL: (
       skip: number,
       take: number,
+      status: 0 | 1 | 2 | 3,
       startDate?: string,
-      endDate?: string,
-      status?: 0 | 1 | 2 | 3
+      endDate?: string
     ) => {
       const queryParams = [];
 
