@@ -2,12 +2,11 @@ import { Box, Button, Container, Modal } from "@mui/material"
 import { appThunks } from "../../store/features/app/appThunks";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { appSelectors } from "../../store/features";
-import { Table } from "../../components/Table";
 import { useEffect, useState } from "react";
 import { CreateUser } from "./CreateUser";
 import { DEFAULT_REQUEST } from "../../config/const";
+import { renderUsers } from "./utils";
 
-const USER_FIELDS = { id: 'id', lastName: 'Фамилия', firstName: 'Имя', middleName: 'Отчество', role: 'Роль' };
 
 export const Users = () => {
   const [open, setOpen] = useState(false);
@@ -49,7 +48,7 @@ export const Users = () => {
           >
             <CreateUser />
           </Modal>
-          {users && users?.length ? <Table title="Пользователи" fields={USER_FIELDS} data={users} /> : null}
+          {renderUsers(users)}
         </Box>
       </Box>
     </Container >

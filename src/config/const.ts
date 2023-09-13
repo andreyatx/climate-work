@@ -4,6 +4,13 @@ export enum Role {
   Chief = "Бригадир",
 }
 
+export enum Status {
+  New = "Новый",
+  Assigned = "Назначен",
+  Done = "Выполнен",
+  Canceled = "Отменён",
+}
+
 export enum Address {
   id = "id",
   city = "Город",
@@ -12,44 +19,7 @@ export enum Address {
   room = "Квартира",
 }
 
-export enum User {
-  id = "id",
-  lastName = "Фамилия",
-  firstName = "Имя",
-  middleName = "Отчество",
-  role = "Роль",
-}
-
-export enum Orders {
-  status = "Статус",
-  description = "Описание",
-  cost = "Стоимость",
-  startOfWork = "Начало работы",
-  completed = "Выполнен",
-  customer = "Заказчик",
-  address = "Адрес",
-  id = "id",
-}
-
-export enum Status {
-  New = "Новый",
-  Assigned = "Назначен",
-  Done = "Выполнен",
-  Canceled = "Отменён",
-}
-
-export enum Customer {
-  id = "id",
-  lastName = "Фамилия",
-  firstName = "Имя",
-  middleName = "Отчество",
-  phone = "Телефон",
-  addresses = "Адреса",
-}
-
 export const DEFAULT_REQUEST = {
   skip: 0,
   take: 10,
 };
-
-export const enumList = [Address, Role, User, Status, Customer];

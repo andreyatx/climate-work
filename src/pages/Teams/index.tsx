@@ -2,16 +2,12 @@ import { Box, Button, Container, Modal } from "@mui/material";
 import { appThunks } from "../../store/features/app/appThunks";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { appSelectors } from "../../store/features";
-import { Table } from "../../components/Table";
 import { useEffect, useState } from "react";
 import { CreateTeam } from "./CreateTeam";
 import { DEFAULT_REQUEST } from "../../config/const";
+import { renderTeams } from "./utils";
 
-const teamFields = {
-  id: "id",
-  name: "Название",
-  users: 'Пользователи'
-};
+
 
 
 export const Teams = () => {
@@ -56,9 +52,7 @@ export const Teams = () => {
           <Modal open={open} onClose={handleClose}>
             <CreateTeam />
           </Modal>
-          {teams && teams?.length ? (
-            <Table title="Команды" fields={teamFields} data={teams} />
-          ) : null}
+          {renderTeams(teams)}
         </Box>
       </Box>
     </Container>

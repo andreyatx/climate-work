@@ -2,7 +2,7 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { api } from "../../../api";
 import styles from './styles.module.css';
-import { orderFields } from "..";
+import { ORDER_FIELDS } from "../utils";
 
 const initialForm = {
   skip: 0,
@@ -34,7 +34,7 @@ export const CreateOrder = () => {
   };
 
   const orderFieldsArray = [];
-  for (const prop in orderFields) {
+  for (const prop in ORDER_FIELDS) {
     orderFieldsArray.push(
       <TextField
         key={prop}
@@ -42,7 +42,7 @@ export const CreateOrder = () => {
         required
         fullWidth
         id={prop}
-        label={orderFields[prop]}
+        label={ORDER_FIELDS[prop]}
         name={prop}
         value={formData[prop]}
         onChange={changeHandler}

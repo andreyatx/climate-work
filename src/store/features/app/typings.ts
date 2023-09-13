@@ -15,12 +15,14 @@ export type User = {
 };
 
 export type Order = {
+  id: number;
+  status: string;
   description: string;
   cost: number;
   startOfWork: string;
-  customerId: number;
-  addressId: number;
-  teamId: number;
+  completed: string;
+  customer: Customer;
+  address: Address;
 };
 
 export type Address = {

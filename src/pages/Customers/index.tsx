@@ -6,8 +6,8 @@ import { Table } from "../../components/Table";
 import { useEffect, useState } from "react";
 import { CreateCustomer } from "./CreateCustomer";
 import { DEFAULT_REQUEST } from "../../config/const";
+import { renderCustomers } from "./utils";
 
-const customerFields = { id: 'id', lastName: 'Фамилия', firstName: 'Имя', middleName: 'Отчество', phone: 'Телефон', addresses: 'Адреса', };
 
 export const Customers = () => {
   const [open, setOpen] = useState(false);
@@ -49,7 +49,7 @@ export const Customers = () => {
           >
             <CreateCustomer />
           </Modal>
-          {customers && customers?.length ? <Table title="Заказчики" fields={customerFields} data={customers} /> : null}
+          {renderCustomers(customers)}
         </Box>
       </Box>
     </Container >

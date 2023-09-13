@@ -2,23 +2,12 @@ import { Box, Button, Container, Modal } from "@mui/material"
 import { appSelectors } from "../../store/features";
 import { appThunks } from "../../store/features/app/appThunks";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { Table } from "../../components/Table";
 import { useEffect, useState } from "react";
 import { CreateOrder } from "./CreateOrder";
 import { DEFAULT_REQUEST } from "../../config/const";
+import { renderOrders } from "./utils";
 
-export const orderFields: {
-  [key: string]: string;
-} = {
-  id: "id",
-  status: "Статус",
-  description: "Описание",
-  cost: "Стоимость",
-  startOfWork: "Начало работы",
-  completed: "Выполнен",
-  customer: "Заказчик",
-  address: "Адрес",
-};
+
 
 export const Orders = () => {
   const [open, setOpen] = useState(false);
@@ -61,7 +50,7 @@ export const Orders = () => {
           >
             <CreateOrder />
           </Modal>
-          {orders && orders?.length > 0 && <Table fields={orderFields} data={orders} title="Заказы" />}
+          {renderOrders(orders)}
         </Box>
       </Box>
 

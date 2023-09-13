@@ -1,7 +1,7 @@
-import { Typography, TableContainer, Table as MuiTable } from "@mui/material";
-import { FC } from "react";
+import { Typography, TableContainer, Table as MuiTable, TableBody } from "@mui/material";
+import { FC, PropsWithChildren } from "react";
 import { Customer, Order, Team, User } from "../../store/features/app/typings";
-import { renderTableHead, renderTableBody } from "./utils";
+import { renderTableHead } from "./utils";
 
 export type TableData = User[] | Order[] | Customer[] | Team[];
 
@@ -11,7 +11,7 @@ type TableProps = {
   data: TableData;
 }
 
-export const Table: FC<TableProps> = ({ title, fields, data }) => {
+export const Table: FC<PropsWithChildren<TableProps>> = ({ title, fields, children }) => {
 
   return (
     <>
@@ -19,7 +19,9 @@ export const Table: FC<TableProps> = ({ title, fields, data }) => {
       <TableContainer >
         <MuiTable>
           {renderTableHead(fields)}
-          {renderTableBody(data, fields)}
+          <TableBody>
+            {children}
+          </TableBody>
         </MuiTable>
       </TableContainer >
     </>
