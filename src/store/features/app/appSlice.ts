@@ -12,10 +12,17 @@ export const appSlice = createSlice({
     orders: [],
     customers: [],
     teams: [],
+    isModalOpen: false,
   } as AppState,
   reducers: {
     setIsLoading: (state, { payload }: PayloadAction<boolean>) => {
       state.isAppLoading = payload;
+    },
+    toggleModal: (state) => {
+      state.isModalOpen = !state.isModalOpen;
+    },
+    closeModal: (state) => {
+      state.isModalOpen = false;
     },
   },
   extraReducers: (builder) => {
@@ -44,6 +51,7 @@ export const appSelectors = {
   orders: (state: RootState) => state.app.orders,
   customers: (state: RootState) => state.app.customers,
   teams: (state: RootState) => state.app.teams,
+  isModalOpen: (state: RootState) => state.app.isModalOpen,
 };
 
 export const appActions = appSlice.actions;

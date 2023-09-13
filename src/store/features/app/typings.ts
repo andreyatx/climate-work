@@ -4,6 +4,7 @@ export type AppState = {
   orders: Order[] | [];
   customers: Customer[] | [];
   teams: Team[] | [];
+  isModalOpen: boolean;
 };
 
 export type User = {
