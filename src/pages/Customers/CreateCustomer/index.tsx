@@ -1,18 +1,14 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-// import { api } from "../../../api";
+import { api } from "../../../api";
 import { NewCustomer, NewCustomerFields } from "./typings";
+import { CreateForm } from "../../../components/CreateForm";
 
 const initialForm: NewCustomer = {
   lastName: "",
   firstName: "",
   middleName: "",
-  addresses: [{
-    city: '',
-    street: '',
-    home: 0,
-    room: 0
-  }],
+  address: "",
   phone: "",
 };
 
@@ -20,7 +16,7 @@ export const customerFields: NewCustomerFields = {
   lastName: "Фамилия",
   firstName: "Имя",
   middleName: "Отчество",
-  addresses: 'Адреса',
+  address: 'Адрес',
   phone: 'Телефон'
 };
 
@@ -29,7 +25,7 @@ export const CreateCustomer = () => {
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // api.createUser(formData);
+    api.createCustomer(formData);
 
     setFormData(initialForm);
   }
@@ -58,37 +54,18 @@ export const CreateCustomer = () => {
       />)
   }
   return (
-    <Box sx={{
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      bgcolor: 'background.paper',
-      boxShadow: 24,
-      p: 4,
-    }}>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          width: '540px'
-        }}
-        component="form" onSubmit={submitHandler} noValidate
+    <CreateForm onSubmit={submitHandler}>
+      <Typography variant="h4">Новый заказчик</Typography>
+      {customerFieldsArray.map(field => field)}
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+        className="text-black"
       >
-        <Typography variant="h4">Новый заказчик</Typography>
-        {customerFieldsArray.map(field => field)}
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-          className="text-black"
-        >
-          Создать
-        </Button>
-      </Box>
-    </Box>
-
+        Создать
+      </Button>
+    </CreateForm>
   )
 }

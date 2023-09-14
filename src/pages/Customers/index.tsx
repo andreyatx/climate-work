@@ -2,7 +2,6 @@ import { Box, Button, Container, Modal } from "@mui/material"
 import { appThunks } from "../../store/features/app/appThunks";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { appSelectors } from "../../store/features";
-import { Table } from "../../components/Table";
 import { useEffect, useState } from "react";
 import { CreateCustomer } from "./CreateCustomer";
 import { DEFAULT_REQUEST } from "../../config/const";

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_ENDPOINTS, BASE_URL } from "./const";
-import { OrderData, SignInData } from "./types";
+import { CustomerData, OrderData, SignInData, TeamData } from "./types";
 import {
   GetCustomersRequest,
   GetOrdersRequest,
@@ -53,5 +53,11 @@ export const api = {
   },
   createOrder: (data: OrderData) => {
     instance.post(API_ENDPOINTS.ORDER.CREATE, data);
+  },
+  createCustomer: (data: CustomerData) => {
+    instance.post(API_ENDPOINTS.CUSTOMER.CREATE, data);
+  },
+  createTeam: (data: TeamData) => {
+    instance.post(API_ENDPOINTS.TEAM.CREATE, data);
   },
 };

@@ -1,7 +1,7 @@
 import { TableRow, TableCell, Divider } from "@mui/material";
 import { nanoid } from "@reduxjs/toolkit";
 import { Table } from "../../components/Table"
-import { Address, Role } from "../../config/const";
+import { Address } from "../../config/const";
 import { Customer } from "../../store/features/app/typings";
 
 export const CUSTOMER_FIELDS = { id: 'id', lastName: 'Фамилия', firstName: 'Имя', middleName: 'Отчество', phone: 'Телефон', addresses: 'Адреса', };

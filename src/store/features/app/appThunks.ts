@@ -7,7 +7,7 @@ import {
   GetUsersRequest,
 } from "./typings";
 
-export const getUsers = createAsyncThunk(
+const getUsers = createAsyncThunk(
   "users/get",
   async (payload: GetUsersRequest) => {
     const data = await api.getAllUsers(payload);
@@ -16,7 +16,7 @@ export const getUsers = createAsyncThunk(
   }
 );
 
-export const getOrders = createAsyncThunk(
+const getOrders = createAsyncThunk(
   "orders/get",
   async (payload: GetOrdersRequest) => {
     const data = await api.getAllOrders(payload);
@@ -25,7 +25,7 @@ export const getOrders = createAsyncThunk(
   }
 );
 
-export const getCustomers = createAsyncThunk(
+const getCustomers = createAsyncThunk(
   "customers/get",
   async (payload: GetCustomersRequest) => {
     const data = await api.getAllCustomers(payload);
@@ -34,7 +34,7 @@ export const getCustomers = createAsyncThunk(
   }
 );
 
-export const getTeams = createAsyncThunk(
+const getTeams = createAsyncThunk(
   "teams/get",
   async (payload: GetTeamsRequest) => {
     const data = await api.getAllTeams(payload);

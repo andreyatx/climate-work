@@ -40,9 +40,11 @@ export const API_ENDPOINTS = {
       `/Customer/${
         search ? `?Search=${search}` : "?"
       }Skip=${skip}&Take=${take}`,
+    CREATE: "/Customer",
   },
   TEAM: {
     GET_ALL: (skip: number, take: number, search?: string) =>
       `/Teams/${search ? `?Search=${search}` : "?"}Skip=${skip}&Take=${take}`,
+    CREATE: "/create",
   },
 };
