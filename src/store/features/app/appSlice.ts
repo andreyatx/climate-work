@@ -13,6 +13,8 @@ export const appSlice = createSlice({
     customers: [],
     teams: [],
     isModalOpen: false,
+    isEditing: false,
+    currentUser: null,
   } as AppState,
   reducers: {
     setIsLoading: (state, { payload }: PayloadAction<boolean>) => {
@@ -23,6 +25,12 @@ export const appSlice = createSlice({
     },
     closeModal: (state) => {
       state.isModalOpen = false;
+    },
+    setIsEditing: (state, { payload }) => {
+      state.isEditing = payload;
+    },
+    setCurrentUser: (state, { payload }) => {
+      state.currentUser = payload;
     },
   },
   extraReducers: (builder) => {

@@ -4,6 +4,7 @@ import { Table } from "../../components/Table";
 import { Order } from "../../store/features/app/typings";
 import { CUSTOMER_FIELDS } from "../Customers/utils";
 import { Address, Status } from "../../config/const";
+import { Edit, Delete } from "@mui/icons-material";
 
 export const ORDER_FIELDS: {
   [key: string]: string;
@@ -40,6 +41,10 @@ export const renderOrders = (orders: [] | Order[]) => {
           Object.entries(order.address).map(([key, value]) => {
             return <div key={nanoid()}> {`${Address[key as keyof typeof Address]}: ${value}`}</div>
           })}
+        </TableCell>
+        <TableCell>
+          <Edit sx={{ mr: "20px", cursor: 'pointer' }} />
+          <Delete sx={{ cursor: 'pointer' }} />
         </TableCell>
       </TableRow>
     })}

@@ -1,6 +1,12 @@
 import axios from "axios";
 import { API_ENDPOINTS, BASE_URL } from "./const";
-import { CustomerData, OrderData, SignInData, TeamData } from "./types";
+import {
+  CustomerData,
+  EditUserData,
+  OrderData,
+  SignInData,
+  TeamData,
+} from "./types";
 import {
   GetCustomersRequest,
   GetOrdersRequest,
@@ -48,6 +54,9 @@ export const api = {
       .get(API_ENDPOINTS.TEAM.GET_ALL(skip, take, search))
       .then((res) => res.data);
   },
+  getUserById: (id: number) => {
+    instance.get(API_ENDPOINTS.USER.GET_BY_ID(id));
+  },
   createUser: (data: NewUser) => {
     instance.post(API_ENDPOINTS.USER.CREATE, data);
   },
@@ -59,5 +68,13 @@ export const api = {
   },
   createTeam: (data: TeamData) => {
     instance.post(API_ENDPOINTS.TEAM.CREATE, data);
+  },
+  deleteUser: (id: number | string) => {
+    instance.delete(API_ENDPOINTS.USER.GET_BY_ID(id));
+  },
+  editUser: (id: number | string, data: EditUserData) => {
+    console.log(id, data);
+
+    instance.patch(API_ENDPOINTS.USER.GET_BY_ID(id), data);
   },
 };

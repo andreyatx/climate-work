@@ -1,19 +1,18 @@
-import { Box, Button, Container, Modal } from "@mui/material"
+import { Box, Button, Container } from "@mui/material"
 import { appThunks } from "../../store/features/app/appThunks";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { appSelectors } from "../../store/features";
-import { useEffect, useState } from "react";
-import { CreateUser } from "./CreateUser";
+import { appActions, appSelectors } from "../../store/features";
+import { useEffect } from "react";
 import { DEFAULT_REQUEST } from "../../config/const";
-import { renderUsers } from "./utils";
-
+import { CreateUser } from "./CreateUser";
+import { UserList } from "./UserList";
+import { EditUser } from "./EditUser";
 
 export const Users = () => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const dispatch = useAppDispatch();
   const users = useAppSelector(appSelectors.users);
+  const { isEditing, currentUser } = useAppSelector(appSelectors.all);
+
 
   useEffect(() => {
     dispatch(appThunks.getUsers(DEFAULT_REQUEST))
@@ -41,14 +40,9 @@ export const Users = () => {
             width: '100%',
           }}
         >
-          <Button variant="contained" sx={{ alignSelf: 'flex-end', mt: '12px' }} onClick={handleOpen}>Создать пользователя</Button>
-          <Modal
-            open={open}
-            onClose={handleClose}
-          >
-            <CreateUser />
-          </Modal>
-          {renderUsers(users)}
+          <Button variant="contained" sx={{ alignSelf: 'flex-end', mt: '12px' }} onClick={() => { dispatch(appActions.setIsEditing(false)); dispatch(appActions.toggleModal()) }}>Создать пользователя</Button>
+          <UserList users={users} />
+          {isEditing && currentUser ? <EditUser user={currentUser} /> : <CreateUser />}
         </Box>
       </Box>
     </Container >

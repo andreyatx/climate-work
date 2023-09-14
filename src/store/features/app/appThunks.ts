@@ -6,6 +6,7 @@ import {
   GetTeamsRequest,
   GetUsersRequest,
 } from "./typings";
+import { EditUserData } from "../../../api/types";
 
 const getUsers = createAsyncThunk(
   "users/get",
@@ -42,4 +43,22 @@ const getTeams = createAsyncThunk(
     return data;
   }
 );
-export const appThunks = { getUsers, getOrders, getCustomers, getTeams };
+
+const deleteUserById = createAsyncThunk(
+  "user/delete",
+  async (id: number | string) => await api.deleteUser(id)
+);
+
+const editUserById = createAsyncThunk(
+  "user/edit",
+  async ({ id, data }: { id: string | number; data: EditUserData }) =>
+    await api.editUser(id, data)
+);
+export const appThunks = {
+  getUsers,
+  getOrders,
+  getCustomers,
+  getTeams,
+  deleteUserById,
+  editUserById,
+};

@@ -3,6 +3,7 @@ import { nanoid } from "@reduxjs/toolkit";
 import { Table } from "../../components/Table"
 import { Address } from "../../config/const";
 import { Customer } from "../../store/features/app/typings";
+import { Edit, Delete } from "@mui/icons-material";
 
 export const CUSTOMER_FIELDS = { id: 'id', lastName: 'Фамилия', firstName: 'Имя', middleName: 'Отчество', phone: 'Телефон', addresses: 'Адреса', };
 
@@ -29,9 +30,11 @@ export const renderCustomers = (customers: [] | Customer[]) => {
                 <Divider /></div>
             })}
           </div>
-
         </TableCell>
-
+        <TableCell>
+          <Edit sx={{ mr: "20px", cursor: 'pointer' }} />
+          <Delete sx={{ cursor: 'pointer' }} />
+        </TableCell>
       </TableRow>
     })}
   </Table>

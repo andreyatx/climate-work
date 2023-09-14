@@ -5,6 +5,8 @@ export type AppState = {
   customers: Customer[] | [];
   teams: Team[] | [];
   isModalOpen: boolean;
+  isEditing: boolean;
+  currentUser: null | User;
 };
 
 export type User = {

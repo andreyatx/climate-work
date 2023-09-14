@@ -1,10 +1,16 @@
 import { Button, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { api } from "../../../api";
 import { CreateForm } from "../../../components/CreateForm";
 import { useAppDispatch } from "../../../store/hooks";
 import { appActions } from "../../../store/features";
+import { EditUserData } from "../../../api/types";
+import { User } from "../../../store/features/app/typings";
 import { Modal } from "../../../components/Modal";
+
+type EditUserProps = {
+  user: User;
+}
 
 export type NewUser = {
   [key: string]: string;
@@ -15,30 +21,30 @@ export type NewUser = {
   password: string;
 };
 
-
-const initialForm: NewUser = {
-  lastName: "",
-  firstName: "",
-  middleName: "",
-  login: "",
-  password: "",
-};
-
-export const userFields: NewUser = {
+export const userFields: {
+  [key: string]: string;
+} = {
   lastName: "Фамилия",
   firstName: "Имя",
   middleName: "Отчество",
-  login: "Логин",
-  password: "Пароль",
+  role: "Роль",
 };
 
-export const CreateUser = () => {
-  const [formData, setFormData] = useState<NewUser>(initialForm);
+export const EditUser: FC<EditUserProps> = ({ user }) => {
+  const initialForm: EditUserData = {
+    lastName: user.lastName,
+    firstName: user.firstName,
+    middleName: user.middleName,
+    role: 0
+  };
+
+  const [formData, setFormData] = useState<EditUserData>(initialForm);
   const dispatch = useAppDispatch();
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    api.createUser(formData);
+    const request = { ...formData, role: Number(formData.role) }
+    api.editUser(user.id, request);
 
     setFormData(initialForm);
     dispatch(appActions.closeModal())
@@ -64,8 +70,7 @@ export const CreateUser = () => {
         required={true}
         id={prop}
         label={userFields[prop]}
-        type={prop === 'password' ? 'password' : 'text'
-        }
+        type='text'
         name={prop}
         value={formData[prop]}
         onChange={changeHandler}
@@ -74,7 +79,7 @@ export const CreateUser = () => {
   return (
     <Modal>
       <CreateForm onSubmit={submitHandler}>
-        <Typography variant="h4">Новый пользователь</Typography>
+        <Typography variant="h4">Редактировать пользователя</Typography>
         {userFieldsArray.map(field => field)}
         <Button
           type="submit"
@@ -83,7 +88,7 @@ export const CreateUser = () => {
           sx={{ mt: 3, mb: 2 }}
           className="text-black"
         >
-          Создать
+          Редактировать
         </Button>
       </CreateForm>
     </Modal>

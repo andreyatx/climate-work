@@ -14,3 +14,11 @@ export type CustomerData = {
 export type TeamData = {
   [key: string]: string | number;
 };
+
+export type EditUserData = {
+  [key: string]: string | number;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  role: number;
+};

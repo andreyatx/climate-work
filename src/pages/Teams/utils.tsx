@@ -2,8 +2,9 @@ import { TableRow, TableCell } from "@mui/material";
 import { nanoid } from "@reduxjs/toolkit";
 import { Table } from "../../components/Table";
 import { Team } from "../../store/features/app/typings";
-import { USER_FIELDS } from "../Users/utils";
+import { USER_FIELDS } from "../Users/UserList";
 import { Role } from "../../config/const";
+import { Edit, Delete } from "@mui/icons-material";
 
 const TEAM_FIELDS = {
   id: "id",
@@ -31,7 +32,11 @@ export const renderTeams = (teams: [] | Team[]) => {
               }</div>
             })}
             </TableCell>
+            <TableCell>
+              <Edit sx={{ mr: "20px", cursor: 'pointer' }} />
+              <Delete sx={{ cursor: 'pointer' }} />
+            </TableCell>
           </TableRow>)
       })}
-    </Table>)
+    </Table >)
 }
