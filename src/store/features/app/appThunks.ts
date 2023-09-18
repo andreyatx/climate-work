@@ -6,7 +6,7 @@ import {
   GetTeamsRequest,
   GetUsersRequest,
 } from "./typings";
-import { EditUserData } from "../../../api/types";
+import { EditUserData, SignInData } from "../../../api/types";
 
 const getUsers = createAsyncThunk(
   "users/get",
@@ -54,6 +54,11 @@ const editUserById = createAsyncThunk(
   async ({ id, data }: { id: string | number; data: EditUserData }) =>
     await api.editUser(id, data)
 );
+
+const signIn = createAsyncThunk("auth/sign-in", async (payload: SignInData) => {
+  await api.signin(payload);
+});
+
 export const appThunks = {
   getUsers,
   getOrders,
@@ -61,4 +66,5 @@ export const appThunks = {
   getTeams,
   deleteUserById,
   editUserById,
+  signIn,
 };
