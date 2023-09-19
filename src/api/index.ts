@@ -46,10 +46,10 @@ axios.interceptors.response.use(
 
 export const api = {
   signin: (data: SignInData) => {
-    instance.post(API_ENDPOINTS.AUTH.LOG_IN, data).then((response) => {
-      localStorage.setItem("Access-Token", response.data.accessToken);
-      localStorage.setItem("Refresh-Token", response.data.refreshToken);
-    });
+    return instance.post<{ accessToken: string; refreshToken: string }>(
+      API_ENDPOINTS.AUTH.LOG_IN,
+      data
+    );
   },
   getAllUsers: async (data: GetUsersRequest) => {
     const { skip, take, search } = data;

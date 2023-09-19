@@ -15,5 +15,6 @@ export const Root: FC = () => {
     }
 
   }, [navigate]);
+
   return <Outlet />
-};
+}

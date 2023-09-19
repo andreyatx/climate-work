@@ -3,7 +3,6 @@ import { Container, Box, Typography, TextField, Button, Link as MuiLink, FormCon
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { SignInData } from "../../api/types";
-import { api } from "../../api";
 import { Paths } from "../../routes/router";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { appThunks } from "../../store/features/app/appThunks";

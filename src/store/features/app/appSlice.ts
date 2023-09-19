@@ -39,7 +39,12 @@ export const appSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(appThunks.getUsers.pending, (state, { payload }) => {
+      state.isAppLoading = true;
+    });
+
     builder.addCase(appThunks.getUsers.fulfilled, (state, { payload }) => {
+      state.isAppLoading = false;
       state.users = payload;
     });
 

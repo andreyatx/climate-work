@@ -55,9 +55,21 @@ const editUserById = createAsyncThunk(
     await api.editUser(id, data)
 );
 
-const signIn = createAsyncThunk("auth/sign-in", async (payload: SignInData) => {
-  await api.signin(payload);
-});
+const signIn = createAsyncThunk(
+  "auth/sign-in",
+  async (payload: SignInData, { rejectWithValue }) => {
+    try {
+      const response = await api.signin(payload);
+      localStorage.setItem("Access-Token", response.data.accessToken);
+      localStorage.setItem("Refresh-Token", response.data.refreshToken);
+    } catch (error: any) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const appThunks = {
   getUsers,

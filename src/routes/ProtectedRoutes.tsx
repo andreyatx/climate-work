@@ -1,8 +1,9 @@
-import { AppBar, Toolbar, Typography, Box, Button } from '@mui/material';
+import { AppBar, Toolbar, Typography, Box, Button, CircularProgress } from '@mui/material';
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { Paths } from './router';
 import { useAppDispatch } from '../store/hooks';
 import { appActions } from '../store/features';
+import { Suspense } from 'react';
 
 
 export const ProtectedRoutes = () => {
