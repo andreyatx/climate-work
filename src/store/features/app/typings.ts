@@ -7,6 +7,7 @@ export type AppState = {
   isModalOpen: boolean;
   isEditing: boolean;
   currentUser: null | User;
+  isAuth: boolean;
 };
 
 export type User = {

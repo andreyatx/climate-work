@@ -14,24 +14,24 @@ export const renderCustomers = (customers: [] | Customer[]) => {
   return <Table title="Заказчики" fields={CUSTOMER_FIELDS} data={customers} >
     {customers.map(customer => {
       return <TableRow key={nanoid()}>
-        <TableCell>{customer.id}</TableCell>
+        <TableCell >{customer.id}</TableCell>
         <TableCell>{customer.lastName}</TableCell>
-        <TableCell>{customer.firstName}</TableCell>
-        <TableCell>{customer.middleName}</TableCell>
-        <TableCell>{customer.phone}</TableCell>
+        <TableCell >{customer.firstName}</TableCell>
+        <TableCell >{customer.middleName}</TableCell>
+        <TableCell >{customer.phone}</TableCell>
         <TableCell sx={{ maxHeight: '200px' }}>
           <div style={{
             maxHeight: '200px', overflowX: 'auto', overflowY: 'auto',
           }}>
             {customer.addresses.map(address => {
-              return <div >{Object.entries(address).map(([key, value]) => {
-                return <div>{`${Address[key as keyof typeof Address]}: ${value}`}</div>
+              return <div key={nanoid()}>{Object.entries(address).map(([key, value]) => {
+                return <div key={nanoid()}>{`${Address[key as keyof typeof Address]}: ${value}`}</div>
               })}
                 <Divider /></div>
             })}
           </div>
         </TableCell>
-        <TableCell>
+        <TableCell >
           <Edit sx={{ mr: "20px", cursor: 'pointer' }} />
           <Delete sx={{ cursor: 'pointer' }} />
         </TableCell>

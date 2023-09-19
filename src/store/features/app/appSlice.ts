@@ -3,6 +3,7 @@ import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { type RootState } from "../../store";
 import { type AppState } from "./typings";
 import { appThunks } from "./appThunks";
+import { error } from "console";
 
 export const appSlice = createSlice({
   name: "app",
@@ -15,6 +16,7 @@ export const appSlice = createSlice({
     isModalOpen: false,
     isEditing: false,
     currentUser: null,
+    isAuth: false,
   } as AppState,
   reducers: {
     setIsLoading: (state, { payload }: PayloadAction<boolean>) => {
@@ -32,9 +34,17 @@ export const appSlice = createSlice({
     setCurrentUser: (state, { payload }) => {
       state.currentUser = payload;
     },
+    logout: (state) => {
+      state.isAuth = false;
+    },
   },
   extraReducers: (builder) => {
+    builder.addCase(appThunks.getUsers.pending, (state, { payload }) => {
+      state.isAppLoading = true;
+    });
+
     builder.addCase(appThunks.getUsers.fulfilled, (state, { payload }) => {
+      state.isAppLoading = false;
       state.users = payload;
     });
 
@@ -48,6 +58,19 @@ export const appSlice = createSlice({
 
     builder.addCase(appThunks.getTeams.fulfilled, (state, { payload }) => {
       state.teams = payload;
+    });
+
+    builder.addCase(appThunks.signIn.rejected, (state, { payload }) => {
+      state.isAppLoading = true;
+    });
+
+    builder.addCase(appThunks.signIn.pending, (state) => {
+      state.isAppLoading = true;
+    });
+
+    builder.addCase(appThunks.signIn.fulfilled, (state, data) => {
+      state.isAppLoading = false;
+      state.isAuth = true;
     });
   },
 });

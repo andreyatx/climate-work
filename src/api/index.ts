@@ -23,12 +23,33 @@ const instance = axios.create({
   headers: { Authorization: AuthStr },
 });
 
+axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      console.error("Status:", error.response.status);
+      console.error("Data:", error.response.data);
+      console.error("Headers:", error.response.headers);
+    } else if (error.request) {
+      // The request was made but no response was received
+      console.error("Request:", error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.error("Error:", error.message);
+    }
+
+    // Throw the error to the promise chain
+    return Promise.reject(error);
+  }
+);
+
 export const api = {
   signin: (data: SignInData) => {
-    instance.post(API_ENDPOINTS.AUTH.LOG_IN, data).then((response) => {
-      localStorage.setItem("Access-Token", response.data.accessToken);
-      localStorage.setItem("Refresh-Token", response.data.refreshToken);
-    });
+    return instance.post<{ accessToken: string; refreshToken: string }>(
+      API_ENDPOINTS.AUTH.LOG_IN,
+      data
+    );
   },
   getAllUsers: async (data: GetUsersRequest) => {
     const { skip, take, search } = data;
@@ -73,8 +94,6 @@ export const api = {
     instance.delete(API_ENDPOINTS.USER.GET_BY_ID(id));
   },
   editUser: (id: number | string, data: EditUserData) => {
-    console.log(id, data);
-
     instance.patch(API_ENDPOINTS.USER.GET_BY_ID(id), data);
   },
 };

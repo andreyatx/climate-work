@@ -1,13 +1,13 @@
 
-import { TableRow, TableCell, Button } from "@mui/material";
+import { TableRow, TableCell, Button, CircularProgress } from "@mui/material";
 import { nanoid } from "@reduxjs/toolkit";
 import { Table } from "../../components/Table";
 import { DEFAULT_REQUEST, Role } from "../../config/const";
 import { Edit, Delete } from "@mui/icons-material";
 import { FC } from "react";
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { appThunks } from "../../store/features/app/appThunks";
-import { appActions } from "../../store/features";
+import { appActions, appSelectors } from "../../store/features";
 
 import { User } from "../../store/features/app/typings"
 
@@ -19,6 +19,7 @@ export const USER_FIELDS = { id: 'id', lastName: 'Фамилия', firstName: '�
 
 export const UserList: FC<UserListProps> = ({ users }) => {
   const dispatch = useAppDispatch();
+  const isLoading = useAppSelector(appSelectors.isAppLoading)
   const deleteHandler = (id: number | string) => {
     dispatch(appThunks.deleteUserById(id));
     dispatch(appThunks.getUsers(DEFAULT_REQUEST));
@@ -32,6 +33,10 @@ export const UserList: FC<UserListProps> = ({ users }) => {
 
   if (!(users && users?.length)) {
     return null;
+  }
+
+  if (isLoading) {
+    return <CircularProgress />
   }
 
 
