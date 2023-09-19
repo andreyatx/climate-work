@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: Paths.Home,
-        element: <AuthRoutes />,
+        element: <SignIn />,
         children: [
           {
             path: Paths.SignIn,

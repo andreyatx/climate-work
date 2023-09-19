@@ -64,12 +64,8 @@ export const appSlice = createSlice({
     });
 
     builder.addCase(appThunks.signIn.fulfilled, (state, data) => {
-      if (data.payload === undefined) {
-        state.isAuth = false;
-      } else {
-        state.isAppLoading = false;
-        state.isAuth = true;
-      }
+      state.isAppLoading = false;
+      state.isAuth = true;
     });
   },
 });

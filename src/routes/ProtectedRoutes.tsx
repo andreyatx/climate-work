@@ -1,7 +1,6 @@
 import { AppBar, Toolbar, Typography, Box, Button } from '@mui/material';
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { Paths } from './router';
-import { useEffect } from 'react';
 import { useAppDispatch } from '../store/hooks';
 import { appActions } from '../store/features';
 
@@ -35,12 +34,6 @@ export const ProtectedRoutes = () => {
       </Link>
     )
   }
-
-  useEffect(() => {
-    if (!localStorage.getItem('Access-Token')) {
-      navigate(Paths.SignIn);
-    }
-  }, [navigate]);
 
   return (
     <>
