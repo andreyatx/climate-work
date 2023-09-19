@@ -40,7 +40,11 @@ export const Users = () => {
             width: '100%',
           }}
         >
-          <Button variant="contained" sx={{ alignSelf: 'flex-end', mt: '12px' }} onClick={() => { dispatch(appActions.setIsEditing(false)); dispatch(appActions.toggleModal()) }}>Создать пользователя</Button>
+          <Button variant="contained" sx={{ alignSelf: 'flex-end', mt: '12px' }}
+            onClick={() => {
+              dispatch(appActions.setIsEditing(false));
+              dispatch(appActions.toggleModal());
+            }}>Создать пользователя</Button>
           <UserList users={users} />
           {isEditing && currentUser ? <EditUser user={currentUser} /> : <CreateUser />}
         </Box>

@@ -2,6 +2,7 @@ import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { api } from "../../../api";
 import { CreateForm } from "../../../components/CreateForm";
+import { Modal } from "../../../components/Modal";
 
 type NewTeam = {
   [key: string]: string;
@@ -50,18 +51,20 @@ export const CreateTeam = () => {
       />)
   }
   return (
-    <CreateForm onSubmit={submitHandler}>
-      <Typography variant="h4">Новая команда</Typography>
-      {teamFieldsArray.map(field => field)}
-      <Button
-        type="submit"
-        fullWidth
-        variant="contained"
-        sx={{ mt: 3, mb: 2 }}
-        className="text-black"
-      >
-        Создать
-      </Button>
-    </CreateForm>
+    <Modal>
+      <CreateForm onSubmit={submitHandler}>
+        <Typography variant="h4">Новая команда</Typography>
+        {teamFieldsArray.map(field => field)}
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+          className="text-black"
+        >
+          Создать
+        </Button>
+      </CreateForm>
+    </Modal>
   )
 }

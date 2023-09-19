@@ -3,7 +3,6 @@ import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { type RootState } from "../../store";
 import { type AppState } from "./typings";
 import { appThunks } from "./appThunks";
-import { error } from "console";
 
 export const appSlice = createSlice({
   name: "app",
@@ -16,6 +15,7 @@ export const appSlice = createSlice({
     isModalOpen: false,
     isEditing: false,
     currentUser: null,
+    currentTeam: null,
     isAuth: false,
   } as AppState,
   reducers: {
@@ -33,6 +33,9 @@ export const appSlice = createSlice({
     },
     setCurrentUser: (state, { payload }) => {
       state.currentUser = payload;
+    },
+    setCurrentTeam: (state, { payload }) => {
+      state.currentTeam = payload;
     },
     logout: (state) => {
       state.isAuth = false;

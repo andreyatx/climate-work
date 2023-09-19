@@ -1,21 +1,23 @@
-import { Box, Button, Container, Modal } from "@mui/material";
+import { Box, Button, Container } from "@mui/material";
 import { appThunks } from "../../store/features/app/appThunks";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { appSelectors } from "../../store/features";
-import { useEffect, useState } from "react";
+import { appActions, appSelectors } from "../../store/features";
+import { useEffect } from "react";
 import { CreateTeam } from "./CreateTeam";
 import { DEFAULT_REQUEST } from "../../config/const";
-import { renderTeams } from "./utils";
+import { TeamList } from "./TeamList";
+import { EditTeam } from "./EditTeam";
 
 
 
 
 export const Teams = () => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const dispatch = useAppDispatch();
   const teams = useAppSelector(appSelectors.teams);
+  const { isEditing, currentTeam } = useAppSelector(appSelectors.all);
+
+  console.log(isEditing, currentTeam);
+
 
   useEffect(() => {
     dispatch(appThunks.getTeams(DEFAULT_REQUEST));
@@ -45,14 +47,15 @@ export const Teams = () => {
           <Button
             variant="contained"
             sx={{ alignSelf: "flex-end", mt: "12px" }}
-            onClick={handleOpen}
+            onClick={() => {
+              dispatch(appActions.setIsEditing(false));
+              dispatch(appActions.toggleModal());
+            }}
           >
             Создать команду
           </Button>
-          <Modal open={open} onClose={handleClose}>
-            <CreateTeam />
-          </Modal>
-          {renderTeams(teams)}
+          <TeamList teams={teams} />
+          {isEditing && currentTeam ? <EditTeam /> : <CreateTeam />}
         </Box>
       </Box>
     </Container>

@@ -28,7 +28,6 @@ export const UserList: FC<UserListProps> = ({ users }) => {
   const editHandler = () => {
     dispatch(appActions.setIsEditing(true));
     dispatch(appActions.toggleModal());
-
   };
 
   if (!(users && users?.length)) {

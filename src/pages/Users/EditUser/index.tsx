@@ -76,6 +76,7 @@ export const EditUser: FC<EditUserProps> = ({ user }) => {
         onChange={changeHandler}
       />)
   }
+
   return (
     <Modal>
       <CreateForm onSubmit={submitHandler}>
