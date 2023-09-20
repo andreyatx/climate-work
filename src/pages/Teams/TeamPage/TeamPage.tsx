@@ -1,16 +1,18 @@
-import { Card, CircularProgress, Container, List, ListItem, ListItemButton, Typography } from "@mui/material";
+import { Card, CircularProgress, Container, IconButton, List, ListItem, ListItemButton, Typography } from "@mui/material";
 import { FC, useCallback, useEffect, useState } from "react"
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch } from "../../../store/hooks";
 import { appThunks } from "../../../store/features/app/appThunks";
 import { Team } from "../../../store/features/app/typings";
 import { Role } from "../../../config/const";
-import { Person } from "@mui/icons-material";
+import { ArrowBack, Delete, Person } from "@mui/icons-material";
+import { Paths } from "../../../routes/router";
 
 export const TeamPage: FC = () => {
   const { teamId } = useParams();
   const dispatch = useAppDispatch();
   const [team, setTeam] = useState<Team | null>(null);
+  const navigate = useNavigate();
 
   const fetchTeam = useCallback(async () => {
     if (teamId) {
@@ -34,7 +36,14 @@ export const TeamPage: FC = () => {
 
   return (
     <Container sx={{ display: 'flex', justifyContent: 'center' }}>
-      <Card sx={{ minWidth: '200px', maxWidth: 'fit-content', padding: '20px' }}>
+
+      <Card sx={{ minWidth: '200px', maxWidth: 'fit-content', padding: '20px', position: 'relative' }}>
+        <IconButton onClick={() => navigate(Paths.Teams)} >
+          <ArrowBack />
+        </IconButton>
+        <IconButton sx={{ position: 'absolute', right: 6, color: 'red' }}>
+          <Delete />
+        </IconButton>
         <Typography variant="subtitle2">id: {team.id}</Typography>
         <Typography variant="h5" gutterBottom>{team.name}</Typography>
         <Typography variant="subtitle1">Участники:</Typography>

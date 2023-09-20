@@ -1,12 +1,16 @@
 import { Card as MuiCard, CardContent, Typography, CardActions, Button } from "@mui/material";
 import { FC, PropsWithChildren } from "react";
+import { useNavigate } from "react-router-dom";
 
 type CardProps = {
   subtitle?: string;
   title?: string;
+  to?: string;
 }
 
-export const Card: FC<PropsWithChildren<CardProps>> = ({ subtitle, title, children }) => {
+export const Card: FC<PropsWithChildren<CardProps>> = ({ subtitle, title, to, children }) => {
+  const navigate = useNavigate();
+
   return (
     <MuiCard sx={{ minWidth: 150, maxWidth: 'fit-content' }}>
       <CardContent>
@@ -18,9 +22,11 @@ export const Card: FC<PropsWithChildren<CardProps>> = ({ subtitle, title, childr
         </Typography>
         {children}
       </CardContent>
-      <CardActions>
-        <Button size="small">Подробнее</Button>
-      </CardActions>
+      {to &&
+        <CardActions>
+          <Button onClick={() => navigate(to)} size="small">Подробнее</Button>
+        </CardActions>}
+
     </MuiCard>
   );
 }
