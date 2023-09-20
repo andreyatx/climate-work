@@ -5,7 +5,6 @@ import { Orders } from "../pages/Orders";
 import { Users } from "../pages/Users";
 import { Customers } from "../pages/Customers";
 import { Teams } from "../pages/Teams";
-import { AuthRoutes } from "./AuthRoutes";
 import { ProtectedRoutes } from "./ProtectedRoutes";
 
 export enum Paths {

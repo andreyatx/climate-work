@@ -8,9 +8,6 @@ import { DEFAULT_REQUEST } from "../../config/const";
 import { TeamList } from "./TeamList";
 import { EditTeam } from "./EditTeam";
 
-
-
-
 export const Teams = () => {
   const dispatch = useAppDispatch();
   const teams = useAppSelector(appSelectors.teams);

@@ -1,9 +1,8 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { api } from "../../../api";
-import styles from './styles.module.css';
-import { ORDER_FIELDS } from "../utils";
 import { CreateForm } from "../../../components/CreateForm";
+import styles from './styles.module.css';
 
 const initialForm = {
   skip: 0,
@@ -77,4 +76,3 @@ export const CreateOrder = () => {
     </CreateForm>
   )
 }
-
