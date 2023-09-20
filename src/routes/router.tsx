@@ -6,6 +6,7 @@ import { Users } from "../pages/Users";
 import { Customers } from "../pages/Customers";
 import { Teams } from "../pages/Teams";
 import { ProtectedRoutes } from "./ProtectedRoutes";
+import { TeamPage } from "../pages/Teams/TeamPage";
 
 export enum Paths {
   Home = '/',
@@ -14,7 +15,8 @@ export enum Paths {
   Users = '/users',
   Orders = '/orders',
   Customers = '/customers',
-  Teams = '/teams'
+  Teams = '/teams',
+  Team = '/teams/:teamId'
 }
 
 export const router = createBrowserRouter([
@@ -50,6 +52,10 @@ export const router = createBrowserRouter([
           {
             path: Paths.Teams,
             element: <Teams />
+          },
+          {
+            path: Paths.Team,
+            element: <TeamPage />
           }
         ]
       },

@@ -78,6 +78,9 @@ export const api = {
   getUserById: (id: number) => {
     instance.get(API_ENDPOINTS.USER.GET_BY_ID(id));
   },
+  getTeamById: (id: number) => {
+    return instance.get(API_ENDPOINTS.TEAM.GET_BY_ID(id));
+  },
   createUser: (data: NewUser) => {
     instance.post(API_ENDPOINTS.USER.CREATE, data);
   },

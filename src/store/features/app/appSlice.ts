@@ -16,7 +16,7 @@ export const appSlice = createSlice({
     isEditing: false,
     currentUser: null,
     currentTeam: null,
-    isAuth: false,
+    isAuth: true,
   } as AppState,
   reducers: {
     setIsLoading: (state, { payload }: PayloadAction<boolean>) => {

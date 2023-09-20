@@ -7,7 +7,6 @@ export const Root: FC = () => {
 
   useEffect(() => {
     if (localStorage.getItem('Access-Token')) {
-      navigate(Paths.Users);
       console.log('already authorized');
     } else {
       navigate(Paths.SignIn);
