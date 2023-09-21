@@ -96,6 +96,9 @@ export const api = {
   deleteUser: (id: number | string) => {
     instance.delete(API_ENDPOINTS.USER.GET_BY_ID(id));
   },
+  deleteTeam: (id: number | string) => {
+    instance.delete(API_ENDPOINTS.TEAM.GET_BY_ID(id));
+  },
   editUser: (id: number | string, data: EditUserData) => {
     instance.patch(API_ENDPOINTS.USER.GET_BY_ID(id), data);
   },

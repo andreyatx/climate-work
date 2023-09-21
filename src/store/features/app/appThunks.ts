@@ -60,6 +60,11 @@ const getTeamById = createAsyncThunk(
   async (id: number) => await api.getTeamById(id)
 );
 
+const deleteTeamById = createAsyncThunk(
+  "team/delete",
+  async (id: number | string) => await api.deleteUser(id)
+);
+
 const signIn = createAsyncThunk(
   "auth/sign-in",
   async (payload: SignInData, { rejectWithValue }) => {
@@ -82,6 +87,7 @@ export const appThunks = {
   getCustomers,
   getTeams,
   deleteUserById,
+  deleteTeamById,
   editUserById,
   signIn,
   getTeamById,

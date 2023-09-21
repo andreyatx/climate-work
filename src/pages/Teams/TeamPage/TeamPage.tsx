@@ -14,6 +14,11 @@ export const TeamPage: FC = () => {
   const [team, setTeam] = useState<Team | null>(null);
   const navigate = useNavigate();
 
+  const deleteHandler = (id: number | string) => {
+    dispatch(appThunks.deleteTeamById(id));
+    navigate(Paths.Teams);
+  };
+
   const fetchTeam = useCallback(async () => {
     if (teamId) {
       const response: Team = (await dispatch(appThunks.getTeamById(+teamId)).unwrap()).data;
@@ -38,12 +43,16 @@ export const TeamPage: FC = () => {
     <Container sx={{ display: 'flex', justifyContent: 'center' }}>
 
       <Card sx={{ minWidth: '200px', maxWidth: 'fit-content', padding: '20px', position: 'relative' }}>
+
         <IconButton onClick={() => navigate(Paths.Teams)} >
           <ArrowBack />
         </IconButton>
-        <IconButton sx={{ position: 'absolute', right: 6, color: 'red' }}>
-          <Delete />
-        </IconButton>
+
+        {teamId &&
+          <IconButton onClick={() => deleteHandler(teamId)} sx={{ position: 'absolute', right: 6, color: 'red' }}>
+            <Delete />
+          </IconButton>}
+
         <Typography variant="subtitle2">id: {team.id}</Typography>
         <Typography variant="h5" gutterBottom>{team.name}</Typography>
         <Typography variant="subtitle1">Участники:</Typography>
